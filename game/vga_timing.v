@@ -1,6 +1,6 @@
 module vga_timing(
     input         clk_50m,    // 50MHz像素时钟
-    input         rst_n,      // 复位（低有效）
+    input         rst_n,      // 异步复位，低有效
     output reg    hsync,      // 行同步
     output reg    vsync,      // 场同步
     output reg    valid,      // 有效显示区域标志

@@ -61,7 +61,8 @@ end
 
 assign move_en = (speed_cnt == SPEED_CNT_MAX - 1);
 
-// 二进制LED显示 - 不需要字体ROM了
+// 二进制LED显示
+
 
 // 初始化游戏元素
 initial begin
@@ -165,9 +166,6 @@ always @(posedge clk_50m or negedge rst_n) begin
                    && (ball_y >= point_y[i] - BALL_R) && (ball_y <= point_y[i] + POINT_H + BALL_R)) begin
                     point_valid[i] <= 1'b0;  // 得分点失效
                     score <= score + 8'd1;   // 得分+1
-                    // 简单的反弹逻辑，实际可能需要判断撞击方向
-                    // 这里简化为垂直反弹
-                    // ball_dir_y <= ~ball_dir_y; // 在这里修改方向可能会与运动逻辑冲突，建议仅计分，或者在运动逻辑中处理
                 end
             end
         end
@@ -189,7 +187,7 @@ generate
         assign in_led[j] = (xpos >= led_x) && (xpos < led_x + BIN_LED_SIZE) &&
                           (ypos >= led_y) && (ypos < led_y + BIN_LED_SIZE);
         // LED状态：如果该位为1则亮（白色），否则暗（灰色）
-        assign led_on[j] = score[j];
+        assign led_on[j] = score[j];//二进制显示分数
     end
 endgenerate
 
